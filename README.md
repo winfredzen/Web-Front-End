@@ -8,3 +8,4 @@ JavaScript学习笔记
 + [004_解构赋值](https://github.com/winfredzen/JavaScript-Learn/blob/master/004_%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC.md)
 + [005_模板字符串](https://github.com/winfredzen/JavaScript-Learn/blob/master/005_%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2.md)
 + [006_对象的扩展](https://github.com/winfredzen/JavaScript-Learn/blob/master/006_%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95.md)
++ [007_class](https://github.com/winfredzen/JavaScript-Learn/blob/master/007_class.md)
