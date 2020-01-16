@@ -1,6 +1,4 @@
-# JavaScript-Learn
-
-JavaScript学习笔记，见列表详细记录
+# Web前端
 
 学习站点
 
