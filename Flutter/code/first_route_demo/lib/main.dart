@@ -1,25 +1,16 @@
-// 导入了 Material UI 组件库
 import 'package:flutter/material.dart';
 
-// 程序入口
 void main() {
-  // 启动启动Flutter应用
   runApp(const MyApp());
 }
 
-// MyApp()是 Flutter 应用的根组件
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // Flutter 在构建页面时，会调用组件的build方法，
-  // widget 的主要工作是提供一个 build() 方法来描述如何构建 UI 界面（通常是通过组合、拼装其他基础 widget ）
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // MaterialApp 是Material 库中提供的 Flutter APP 框架，
-    // 通过它可以设置应用的名称、主题、语言、首页及路由列表等。MaterialApp也是一个 widget
     return MaterialApp(
-      // 应用名称
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -40,21 +31,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // 应用首页路由
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: const CounterWidget(),
-        //随便返回一个Text()
-        // home: Text("xxx")
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-// MyHomePage 是应用的首页，它继承自StatefulWidget类，表示它是一个有状态的组件（Stateful widget）
-///
-/// Stateful widget 至少由两个类组成
-/// 1.一个StatefulWidget类
-/// 2.一个 State类； StatefulWidget类本身是不变的，但是State类中持有的状态在 widget 生命周期中可能会发生变化
-///
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -74,12 +55,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //用于记录按钮点击的总次数
   int _counter = 0;
 
   void _incrementCounter() {
-    // setState方法的作用是通知 Flutter 框架，
-    // 有状态发生了改变，Flutter 框架收到通知后，会执行 build 方法来根据新的状态重新构建界面
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -90,7 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  // 构建UI界面的build方法
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -99,7 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    //Scaffold 是 Material 库中提供的页面脚手架，它提供了默认的导航栏、标题和包含主屏幕 widget 树（后同“组件树”或“部件树”）的body属性
     return Scaffold(
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
@@ -113,9 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        // Center 可以将其子组件树对齐到屏幕中心
         child: Column(
-          // Column的作用是将其所有子组件沿屏幕垂直方向依次排列
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
           // children horizontally, and tries to be as tall as its parent.
@@ -138,6 +112,16 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            TextButton(
+              onPressed: () {
+                // 路由
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  //return NewRoute();
+                  return RouterTestRoute();
+                }));
+              },
+              child: Text("open new route"),
+            )
           ],
         ),
       ),
@@ -150,70 +134,73 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class CounterWidget extends StatefulWidget {
-  const CounterWidget({Key? key, this.initValue = 10});
-
-  final int initValue;
-
+class NewRoute extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() {
-    return _CounterWidgetState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("New Route"),
+      ),
+      body: Center(
+        child: Text("This is new route"),
+      ),
+    );
   }
 }
 
-class _CounterWidgetState extends State<CounterWidget> {
-  int _counter = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    //初始化状态
-    _counter = widget.initValue;
-    _counter = 10;
-    print("initState");
-  }
-
-  @override
-  void didUpdateWidget(CounterWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    print("didUpdateWidget ");
-  }
-
-  @override
-  void deactivate() {
-    super.deactivate();
-    print("deactivate");
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    print("dispose");
-  }
-
-  @override
-  void reassemble() {
-    super.reassemble();
-    print("reassemble");
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    print("didChangeDependencies");
-  }
+class TipRoute extends StatelessWidget {
+  TipRoute({
+    Key? key,
+    required this.text,  // 接收一个text参数
+  }) : super(key: key);
+  final String text;
 
   @override
   Widget build(BuildContext context) {
-    print("build");
     return Scaffold(
-      body: Center(
-        child: TextButton(
-          child: Text('$_counter'),
-          onPressed: () => setState(
-            () => ++_counter,
+      appBar: AppBar(
+        title: Text("提示"),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(18),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Text(text),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context, "我是返回值"),
+                child: Text("返回"),
+              )
+            ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class RouterTestRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+        onPressed: () async {
+          // 打开`TipRoute`，并等待返回结果
+          var result = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return TipRoute(
+                  // 路由参数
+                  text: "我是提示xxxx",
+                );
+              },
+            ),
+          );
+          //输出`TipRoute`路由返回结果
+          print("路由返回值: $result");
+        },
+        child: Text("打开提示页"),
       ),
     );
   }
