@@ -55,7 +55,7 @@ const bar = 1000000; // Unit of pressure (dynes/cm2)
 const double atm = 1.01325 * bar; // Standard atmosphere
 ```
 
-常 量如果是类级别的，可以使用`static const`
+常量如果是类级别的，可以使用`static const`
 
 ```dart
 static const PI = 3.1415;
@@ -255,13 +255,70 @@ final constantMap = const {
 
 
 
+### 展开操作符**spread operator** (`...`)
+
+```dart
+  List<int> list1 = [1, 2, 3];
+  List<int> list2 = [4, 5, 6];
+  List<int> combinedList = [...list1, ...list2];
+
+  print(combinedList); // [1, 2, 3, 4, 5, 6]
+```
+
+如果操作的对象可能为null，使用`null-aware spread operator` (`...?`):
+
+```dart
+var list2 = [0, ...?list];
+assert(list2.length == 1);
+```
 
 
 
 
 
+###  级联运算符..(Cascade notation)
 
+参考：
 
++ [ Cascade notation](https://dart.dev/language/operators#cascade-notation)
+
+Cascades (`..`, `?..`) allow you to make a sequence of operations on the same object
+
+```dart
+var paint = Paint()
+  ..color = Colors.black
+  ..strokeCap = StrokeCap.round
+  ..strokeWidth = 5.0;
+```
+
+等价于：
+
+```dart
+var paint = Paint();
+paint.color = Colors.black;
+paint.strokeCap = StrokeCap.round;
+paint.strokeWidth = 5.0;
+```
+
+如果对象可能为null，使用*null-shorting* cascade (`?..`) 
+
+```dart
+querySelector('#confirm') // Get an object.
+  ?..text = 'Confirm' // Use its members.
+  ..classes.add('important')
+  ..onClick.listen((e) => window.alert('Confirmed!'))
+  ..scrollIntoView();
+```
+
+等同于：
+
+```dart
+var button = querySelector('#confirm');
+button?.text = 'Confirm';
+button?.classes.add('important');
+button?.onClick.listen((e) => window.alert('Confirmed!'));
+button?.scrollIntoView();
+```
 
 
 
