@@ -1,28 +1,23 @@
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+# Text
 
-class UITextPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .inversePrimary,
-        title: Text("Text"),
-      ),
-      body: Column(
-        children: [
-          Text("Hello World!", textAlign: TextAlign.left),
-          Text("Hellow World!" * 10),
-          Text("Hello world", textScaleFactor: 1.5),
+参考：
+
++ [文本及样式](https://book.flutterchina.club/chapter3/text.html#_3-1-1-text)
+
+
+
+## TextStyle
+
+设置Text的颜色、字体、粗细、背景，要使用TextStyle
+
+如下的例子：
+
+```dart
           Text(
             "红色字体+黑色删除线+18号+斜体+粗体",
             style: TextStyle(
                 color: const Color(0xffff0000),
-                background: Paint()
-                  ..color = Colors.yellow,
+                background: Paint()..color = Colors.yellow,
                 // 删除线
                 decoration: TextDecoration.lineThrough,
                 // 删除线颜色
@@ -36,6 +31,17 @@ class UITextPage extends StatelessWidget {
                 // 文字间距
                 letterSpacing: 2.0),
           ),
+```
+
+显示效果如下：
+
+![002](./images/002.png)
+
+
+
+通过`height`来设置行间距，如：
+
+```dart
           Text(
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
             style: TextStyle(
@@ -57,6 +63,19 @@ class UITextPage extends StatelessWidget {
               height: 1.5, //150% of actual height
             ),
           ),
+```
+
+![003](./images/003.png)
+
+
+
+
+
+## TextSpan
+
+富文本，可通过`TextSpan`来显示，如：
+
+```dart
           Text.rich(TextSpan(
             children: [
               TextSpan(text: "Home: "),
@@ -70,8 +89,15 @@ class UITextPage extends StatelessWidget {
               )
             ],
           )),
-        ],
-      ),
-    );
-  }
-}
+```
+
+
+
+
+
+
+
+
+
+
+
