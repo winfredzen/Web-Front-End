@@ -7,6 +7,14 @@
 
 
 
+> Everything you can place in a variable is an *object*, and every object is an instance of a *class*. Even numbers, functions, and `null` are objects. With the exception of `null` (if you enable [sound null safety](https://dart.cn/null-safety)), all objects inherit from the [`Object`](https://api.dart.cn/stable/dart-core/Object-class.html) class.
+>
+> 可以放入变量中的所有内容都是对象，每个对象都是类的实例。 甚至数字、函数和 `null` 都是对象。 除了 `null` 之外（如果启用健全的 `null` 安全性），所有对象都继承自 `Object` 类。
+
+
+
+
+
 ## 基本
 
 `main()` 函数来作为运行入口
@@ -319,6 +327,92 @@ button?.classes.add('important');
 button?.onClick.listen((e) => window.alert('Confirmed!'));
 button?.scrollIntoView();
 ```
+
+
+
+### dynamic 和 Object
+
+`Object` 是 Dart 所有对象的根基类
+
+`dynamic`与`Object`声明的变量都可以赋值任意对象，且后期可以改变赋值的类型，这和 `var` 是不同的，如：
+
+```dart
+dynamic t;
+Object x;
+t = "hi world";
+x = 'Hello Object';
+//下面代码没有问题
+t = 1000;
+x = 1000;
+```
+
+`dynamic`与`Object`不同的是`dynamic`声明的对象编译器会提供所有可能的组合，而`Object`声明的对象只能使用 `Object` 的属性与方法, 否则编译器会报错，如:
+
+```dart
+ dynamic a;
+ Object b = "";
+ main() {
+   a = "";
+   printLengths();
+ }   
+
+ printLengths() {
+   // 正常
+   print(a.length);
+   // 报错 The getter 'length' is not defined for the class 'Object'
+   print(b.length);
+ }
+```
+
+
+
+## 函数
+
+如下的函数：
+
+```dart
+bool isNoble(int atomicNumber) {
+  return _nobleGases[atomicNumber] != null;
+}
+```
+
+可以忽略掉返回值类型
+
+```dart
+isNoble(atomicNumber) {
+  return _nobleGases[atomicNumber] != null;
+}
+```
+
+如果只有一个语句，可使用 `=> *expr*`语法（`{ return *expr*; }`）
+
+```dart
+bool isNoble(int atomicNumber) => _nobleGases[atomicNumber] != null;
+```
+
+
+
+### 参数
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
